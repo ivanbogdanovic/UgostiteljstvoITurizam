@@ -1,0 +1,185 @@
+
+
+.container{
+	max-width:970px;
+	width: 100%;
+}
+a:hover {
+	text-decoration: none;
+	color: #D14343 !important;
+}
+img {
+	width: 100%;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+select::-ms-expand {
+    display: none;
+}
+textarea {
+	width: 100%;
+	height: 200px;
+}
+form span {
+	line-height: 34px;
+}
+.header {
+	padding-bottom: 200px;
+	background-color: #999;
+}
+.dropdown-menu {
+	width: 300px;
+	padding: 10px;
+	background-color: #e7e7e7;
+	border-top: none;
+}
+.dropdown-menu li a:last-child {
+	text-align: center;
+	font-weight: bold;
+	margin-top: 10px;
+	color: #1c6c9c;
+	line-height: 30px;
+}
+.divider {
+	background-color: white !important;
+}
+.form span {
+	display: inline-block;
+	float: right;
+	font-size: 10px;
+}
+.add_job_form {
+	width: 50%;
+	padding: 30px 0px;
+}
+.subm_btn .btn-warning {
+	position: relative;
+	left: 45%;
+}
+.main {
+	padding: 20px 0px;
+}
+/*.main_content {
+	clear: both;     koristiti za media
+}*/
+.side_job {
+	padding-left: 30px;
+}
+.side_job h3 {
+	margin-bottom: 30px;
+}
+.side_job span {
+	display: block;
+}
+.comp_description {
+	clear: both;
+	padding: 40px 0px;
+}
+.side_comp_job span {
+	display: block;
+	padding: 5px 0px;
+}
+.search {
+	padding-top: 15px;
+}
+.job {
+	overflow: hidden;
+}
+.job:nth-child(even) {
+	background-color: #eee;
+	z-index: 4;
+}
+.job:hover {
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.276);
+	position: relative;
+	z-index: 6;
+}
+.job_title{
+	margin: 5px 20px;
+	border-bottom: 1px solid #1c6c9c;
+}
+.job_title h5 {
+	font-size: 16px;
+	margin: 0px;
+	padding: 5px 0px;
+	display: inline-block;
+	color: #1c6c9c;
+	font-weight: bold;
+}
+.job .label{
+	display: inline-block;
+	float: right;
+	font-size: 14px;
+}
+.job_lo {
+	float: left;
+}
+.job_lo span {
+	margin: 5px 20px;
+}
+.job_comp {
+	display: block;
+	font-size: 16px;
+}
+.job_logo {
+	float: right;
+	margin: 5px 20px;
+	margin-top: 0px;
+	height: 70px;
+	width: 70px;
+	overflow: hidden;
+}
+div.pagin{
+	border-top: 1px solid #eee;
+        margin-top: 10px;
+}
+div.pagin span {
+    display: inline-block;
+    margin-top: 20px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    border:1px solid #ccc;
+    border-collapse: collapse;
+}
+div.pagin span a{
+    display: block;
+}
+div.pagin span a:hover {
+    background-color: #337ab7;
+}
+.login_form {
+	float: right;
+	max-width: 300px;
+	margin: 20px;
+}
+.search {
+	margin-bottom: 30px;
+}
+#example1 {
+	max-width: 250px !important;
+	float: right;
+	background-color: #e7e7e7;
+}
+.form-control {
+	margin-bottom: 15px;
+}
+
+.disp_title {
+	margin-bottom: 30px;
+}
+.sign_up .row {
+	margin: 10px 0px;
+	border-bottom: 1px solid #eee; 
+} 
+.footer{
+	background-color: #eee;
+	color: #6E7984;
+	font-size: 11px;
+	text-align:center;
+	padding: 10px;
+}
