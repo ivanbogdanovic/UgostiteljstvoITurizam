@@ -5,8 +5,12 @@
 <jsp:include page="admin_top.jsp" flush="true" />
     <div class="container">
     <div class="page-header">
-      <h1>Posao za aktivaciju</h1>
+      <h1>Posao</h1>
     </div>
+    <ol class="breadcrumb">
+        <li><a href="admin/admin_main">Main</a></li>
+        <li class="active">Job</li>
+    </ol>
     <div class="row">
       <div class="col-sm-7">
         <div class="well">
@@ -29,10 +33,15 @@
             <p>${job.description}</p>
           </div>
           <div class="well">
-            <c:if test="${job.status!=2}">
-              <a href="admin/admin_job_activate/${job.jobId}" class="btn btn-success active btn-block"><b>Aktiviraj</b></a>
-            </c:if>
-            <a href="admin/admin_job_update/${job.jobId}" class="btn btn-warning active btn-block"><b>Izmeni</b></a>
+            <c:choose>
+              <c:when test="${job.status!=2}">
+                 <a href="admin/admin_job_activate/${job.jobId}" class="btn btn-success active btn-block"><b>Aktiviraj</b></a> 
+              </c:when>
+              <c:when test="${job.status==2}">
+                 <a href="admin/admin_job_canceled/${job.jobId}" class="btn btn-warning active btn-block"><b>Deaktiviraj</b></a> 
+              </c:when>   
+            </c:choose>
+            <a href="admin/admin_job_update/${job.jobId}" class="btn btn-info active btn-block"><b>Izmeni</b></a>
             <a href="admin/admin_job_delete/${job.jobId}" class="btn btn-danger active btn-block"><b>Obrisi</b></a>
           </div> 
         </div>
@@ -41,7 +50,7 @@
       <div class="col-sm-5">
         <div class="well">
           <div class="list-group">
-              <a href="admin/admin_company/${job.companyId.companyId}" class="list-group-item list-group-item-text">
+              <a href="admin/admin_company/${job.companyId.companyId}" class="list-group-item list-group-item-info">
                 <h3>${job.companyId.name}</h3>
               </a>
           </div>

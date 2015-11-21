@@ -83,17 +83,29 @@ public class AdminController {
         }
     }
     
+    @RequestMapping("/admin_sign_out")
+    public String signOut(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("adminPermit");
+        return "redirect:/";
+    }
+    
     @RequestMapping("/admin_main")
-    public String adminMain(HttpServletRequest request, ModelMap model){
+    public String adminMain(HttpServletRequest request, ModelMap model, @RequestParam(required = false, defaultValue = "2") Short status){
         HttpSession session = request.getSession();
         if(session.getAttribute("adminPermit")==null){
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
             List<Job> job = jobDao.findByStatuses(Status.INACTIVE, Status.UPDATE);
+            List<Job> sJob= jobDao.findByStatus(status);
             List<Company> company = companyDao.findByStatuses(Status.INACTIVE, Status.UPDATE);
+            List<Company> sCompany = companyDao.findByStatus(status);
             model.addAttribute("job", job);
+            model.addAttribute("sJob", sJob); 
             model.addAttribute("company", company);
+            model.addAttribute("aCompany", sCompany);
+            model.addAttribute("status", Status.fields());
             return "admin/admin_main";
         }
     }
@@ -142,7 +154,20 @@ public class AdminController {
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            companyDao.activate(id);
+            companyDao.changeStatus(id, Status.ACTIVE);
+            return "redirect:/admin/admin_company/"+id;
+        }
+    }
+    
+    
+    @RequestMapping("/admin_company_canceled/{id}")
+    public String canceledCompany(HttpServletRequest request, ModelMap model, @PathVariable Short id){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminPermit")==null){
+            model.addAttribute("msg", 2);
+            return "redirect:../";
+        }else {
+            companyDao.changeStatus(id, Status.CANCELED);
             return "redirect:/admin/admin_company/"+id;
         }
     }
@@ -254,14 +279,27 @@ public class AdminController {
     
     
     @RequestMapping("/admin_job_activate/{id}")
-    public String activateob(HttpServletRequest request, ModelMap model, @PathVariable Integer id){
+    public String activateJob(HttpServletRequest request, ModelMap model, @PathVariable Integer id){
         HttpSession session = request.getSession();
         if(session.getAttribute("adminPermit")==null){
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            jobDao.activate(id);
+            jobDao.changeStatus(id, Status.ACTIVE);
             return "redirect:/admin/admin_main";
+        }
+    }
+    
+    
+    @RequestMapping("/admin_job_canceled/{id}")
+    public String canceledJob(HttpServletRequest request, ModelMap model, @PathVariable Integer id){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminPermit")==null){
+            model.addAttribute("msg", 2);
+            return "redirect:../";
+        }else {
+            jobDao.changeStatus(id, Status.CANCELED);
+            return "redirect:/admin/admin_job/"+id;
         }
     }
     

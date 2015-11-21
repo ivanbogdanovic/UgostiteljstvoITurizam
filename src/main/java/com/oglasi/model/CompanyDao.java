@@ -47,6 +47,13 @@ public class CompanyDao {
    }
     
     
+    public List<Company> findByStatus(Short status){
+       Session session = sessionFactory.getCurrentSession();
+       List<Company> result = session.getNamedQuery("Company.findByStatus").setShort("status", status).list();
+       return result;
+   }
+    
+    
     public int companyUpdate(String name, String address, String email, String phone, String fax, String web, String pib, String maticniBroj, String about, Integer cityId, Short companyTypeId, Short companyId){
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("UPDATE Company c SET c.name = :name, c.address = :address, c.email = :email, c.phone = :phone, c.fax = :fax, c.web = :web, c.pib = :pib, c.maticniBroj = :maticniBroj, c.about = :about, c.cityId.cityId = :cityId, c.companyTypeId.companyTypeId = :companyTypeId WHERE c.companyId = :companyId");
@@ -87,9 +94,9 @@ public class CompanyDao {
     }
     
     
-     public void activate(Short id){
+     public void changeStatus(Short id, Short status){
        Session session = sessionFactory.getCurrentSession();
-       session.createQuery("UPDATE Company SET status = "+Status.ACTIVE+" WHERE companyId ="+ id).executeUpdate();
+       session.createQuery("UPDATE Company SET status = "+status+" WHERE companyId ="+ id).executeUpdate();
    }
      
      

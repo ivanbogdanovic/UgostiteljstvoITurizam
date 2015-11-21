@@ -18,3 +18,11 @@
     <![endif]-->
   </head>
   <body>
+      <nav class="navbar navbar-inverse">
+        <div class="container">  
+            <ul class="nav navbar-nav">
+                <li><a href="admin/admin_main"><b>Main</b></a></li>
+            </ul>
+            <a href="admin/admin_sign_out" class="btn btn-default navbar-btn" style="margin-left:20px;">Sign Out</a>
+        </div>      
+      </nav>

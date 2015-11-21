@@ -7,6 +7,10 @@
     <div class="page-header">
       <h1>Podaci kompanije</h1>
     </div>
+    <ol class="breadcrumb">
+        <li><a href="admin/admin_main">Main</a></li>
+        <li class="active">Company</li>
+    </ol>
     <div class="row">
       <div class="col-sm-8">
         <div class="well">
@@ -35,10 +39,15 @@
             <p>${company.about}</p>
           </div> 
           <div class="well">
-            <c:if test="${company.status!=2}">
-              <a href="admin/admin_company_activate/${company.companyId}" class="btn btn-success active btn-block"><b>Aktiviraj</b></a>
-            </c:if>
-            <a href="admin/admin_company_update/${company.companyId}" class="btn btn-warning active btn-block"><b>Izmeni</b></a>
+            <c:choose>
+              <c:when test="${company.status!=2}">
+                 <a href="admin/admin_company_activate/${company.companyId}" class="btn btn-success active btn-block"><b>Aktiviraj</b></a> 
+              </c:when>
+              <c:when test="${company.status==2}">
+                 <a href="admin/admin_company_canceled/${company.companyId}" class="btn btn-warning active btn-block"><b>Deaktiviraj</b></a> 
+              </c:when>   
+            </c:choose>
+            <a href="admin/admin_company_update/${company.companyId}" class="btn btn-info active btn-block"><b>Izmeni</b></a>
             <a href="admin/admin_company_delete/${company.companyId}" class="btn btn-danger active btn-block"><b>Obrisi</b></a>
           </div> 
         </div>

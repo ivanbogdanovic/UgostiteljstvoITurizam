@@ -8,6 +8,11 @@
     <div class="page-header">
       <h1>Promena podataka posla</h1>
     </div>
+    <ol class="breadcrumb">
+        <li><a href="admin/admin_main">Main</a></li>
+        <li><a href="admin/admin_job/${job.jobId}">Job</a></li>
+        <li class="active">Update</li>
+    </ol>
     <div class="row">
       <div class="col-sm-8">
         <div class="well">

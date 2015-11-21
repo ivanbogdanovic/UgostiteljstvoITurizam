@@ -95,9 +95,16 @@ public class JobDao {
    }
      
      
-     public void activate(Integer id){
+     public List<Job> findByStatus(Short status){
        Session session = sessionFactory.getCurrentSession();
-       session.createQuery("UPDATE Job SET status = "+Status.ACTIVE+", activeDate = CURRENT_TIMESTAMP WHERE jobId ="+ id).executeUpdate();
+       List<Job> result = session.getNamedQuery("Job.findByStatus").setShort("status", status).list();
+       return result;
+   }
+     
+     
+     public void changeStatus(Integer id, Short status){
+       Session session = sessionFactory.getCurrentSession();
+       session.createQuery("UPDATE Job SET status = "+status+", activeDate = CURRENT_TIMESTAMP WHERE jobId ="+ id).executeUpdate();
    }
      
      
