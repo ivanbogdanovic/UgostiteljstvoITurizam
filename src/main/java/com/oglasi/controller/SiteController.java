@@ -94,7 +94,7 @@ public class SiteController {
     public String companyInfo(@PathVariable Short id, ModelMap model, HttpServletRequest request){
         HttpSession session = request.getSession();
         Company company = companyDao.findById(id);
-        List<Job> job = jobDao.findByCompAndStatus(id, Status.ACTIVE);
+        List<Job> job = jobDao.findByCompAndStatus(id, Status.ACTIVE.ordinal());
         model.addAttribute("company", company);
         model.addAttribute("job", job);
          if(session.getAttribute("compId")!=null){

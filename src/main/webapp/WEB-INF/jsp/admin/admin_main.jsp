@@ -55,21 +55,23 @@
         <div class="col-md-4">
             <div class="well">
               <div class="list-group">
-                <div class="list-group-item list-group-item-text"><h4>Aktivne kompanije i poslovi</h4>
-                <div class="form-group">
-                    <select class="form-control">
-                        <c:forEach items="${status}" var="status">
-                            <option value="${status}">${status.toString()}</option>
-                        </c:forEach>
-                    </select>
-                  </div>
+                <div class="list-group-item list-group-item-text"><h4>Izaberi status</h4>
+                    <form method="POST" action="admin/admin_main">
+                      <div class="form-group">
+                          <select class="form-control" name="sta" onchange="this.form.submit()">
+                            <c:forEach items="${status}" var="status">
+                                <option <c:if test="${sta==status.ordinal()}">selected</c:if> value="${status.ordinal()}">${status}</option>
+                            </c:forEach>
+                        </select>
+                      </div>
+                    </form>
                 </div>
               </div>
               <h1><small>Poslovi</small></h1>
               <div class="form-group">
-                <select class="form-control"  onchange="location = this.options[this.selectedIndex].value;">
+                <select class="form-control" onchange="location = this.options[this.selectedIndex].value;">
                     <option selected>job</option>
-                    <c:forEach items="${sJob}" var="aJob">
+                    <c:forEach items="${sJob}" var="sJob">
                         <option value="admin/admin_job/${sJob.jobId}">${sJob.title}</option>
                     </c:forEach>
                 </select>
@@ -78,7 +80,7 @@
               <div class="form-group">
                 <select class="form-control" onchange="location = this.options[this.selectedIndex].value;">
                     <option selected>company</option>
-                    <c:forEach items="${sCompany}" var="aCompany">
+                    <c:forEach items="${sCompany}" var="sCompany">
                         <option value="admin/admin_company/${sCompany.companyId}">${sCompany.name}</option>
                     </c:forEach>
                 </select>

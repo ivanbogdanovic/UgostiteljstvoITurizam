@@ -61,9 +61,9 @@ public class JobDao {
    }
     
     
-     public List<Job> findByCompAndStatus(Short id, Short status){
+     public List<Job> findByCompAndStatus(Short id, Integer status){
        Session session = sessionFactory.getCurrentSession();
-       List<Job> result = session.getNamedQuery("Job.findByCompanyAndStatus").setShort("companyId", id).setShort("status", status).list();
+       List<Job> result = session.getNamedQuery("Job.findByCompanyAndStatus").setShort("companyId", id).setInteger("status", status).list();
        return result;
    }
      
@@ -76,7 +76,7 @@ public class JobDao {
        EmploymentType eT = new EmploymentType(employmentTypeId);
        JobPosition jP = new JobPosition(jobPositionId);
        Company com = new Company(companyId);
-       Job job = new Job(title, c, jP, eT, com, address, description, contactPerson, phone, email, Status.INACTIVE, createDate, jobDuration);
+       Job job = new Job(title, c, jP, eT, com, address, description, contactPerson, phone, email, (short)Status.INACTIVE.ordinal(), createDate, jobDuration);
        session.persist(job);
        return job;
    }
@@ -88,7 +88,7 @@ public class JobDao {
      }
      
      
-     public List<Job> findByStatuses(Short status, Short status2){
+     public List<Job> findByStatuses(Integer status, Integer status2){
        Session session = sessionFactory.getCurrentSession();
        List<Job> result = session.createQuery("SELECT j FROM Job j WHERE j.status LIKE "+status+" OR j.status LIKE "+status2).list();
        return result;
@@ -102,7 +102,7 @@ public class JobDao {
    }
      
      
-     public void changeStatus(Integer id, Short status){
+     public void changeStatus(Integer id, Integer status){
        Session session = sessionFactory.getCurrentSession();
        session.createQuery("UPDATE Job SET status = "+status+", activeDate = CURRENT_TIMESTAMP WHERE jobId ="+ id).executeUpdate();
    }

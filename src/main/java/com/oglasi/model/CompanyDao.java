@@ -29,7 +29,7 @@ public class CompanyDao {
         City c = new City(cityId);
         CompanyType ct = new CompanyType(companyTypeId);
         
-        Company company = new Company(name, address, web, email, phone, fax, mat_br, pib, password, about, logo, lastUpdate, createDate, c, ct, Status.INACTIVE);
+        Company company = new Company(name, address, web, email, phone, fax, mat_br, pib, password, about, logo, lastUpdate, createDate, c, ct, (short)Status.INACTIVE.ordinal());
         session.persist(company);
         return company;
     }
@@ -40,7 +40,7 @@ public class CompanyDao {
         return company;
     }
     
-    public List<Company> findByStatuses(Short status, Short status2){
+    public List<Company> findByStatuses(Integer status, Integer status2){
        Session session = sessionFactory.getCurrentSession();
        List<Company> result = session.createQuery("SELECT c FROM Company c WHERE c.status LIKE "+status+" OR c.status LIKE "+status2).list();
        return result;
@@ -94,7 +94,7 @@ public class CompanyDao {
     }
     
     
-     public void changeStatus(Short id, Short status){
+     public void changeStatus(Short id, Integer status){
        Session session = sessionFactory.getCurrentSession();
        session.createQuery("UPDATE Company SET status = "+status+" WHERE companyId ="+ id).executeUpdate();
    }

@@ -91,21 +91,22 @@ public class AdminController {
     }
     
     @RequestMapping("/admin_main")
-    public String adminMain(HttpServletRequest request, ModelMap model, @RequestParam(required = false, defaultValue = "2") Short status){
+    public String adminMain(HttpServletRequest request, ModelMap model, @RequestParam(required = false, defaultValue = "2") Short sta){
         HttpSession session = request.getSession();
         if(session.getAttribute("adminPermit")==null){
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            List<Job> job = jobDao.findByStatuses(Status.INACTIVE, Status.UPDATE);
-            List<Job> sJob= jobDao.findByStatus(status);
-            List<Company> company = companyDao.findByStatuses(Status.INACTIVE, Status.UPDATE);
-            List<Company> sCompany = companyDao.findByStatus(status);
+            List<Job> job = jobDao.findByStatuses(Status.INACTIVE.ordinal(), Status.UPDATE.ordinal());
+            List<Job> sJob= jobDao.findByStatus(sta);
+            List<Company> company = companyDao.findByStatuses(Status.INACTIVE.ordinal(), Status.UPDATE.ordinal());
+            List<Company> sCompany = companyDao.findByStatus(sta);
             model.addAttribute("job", job);
             model.addAttribute("sJob", sJob); 
             model.addAttribute("company", company);
-            model.addAttribute("aCompany", sCompany);
-            model.addAttribute("status", Status.fields());
+            model.addAttribute("sCompany", sCompany);
+            model.addAttribute("status", Status.values());
+            model.addAttribute("sta", sta); 
             return "admin/admin_main";
         }
     }
@@ -133,15 +134,17 @@ public class AdminController {
             return "redirect:../";
         }else {
             Company company = companyDao.findById(id);
-            List<Job> jobActive = jobDao.findByCompAndStatus(id, Status.ACTIVE);
-            List<Job> jobInactive = jobDao.findByCompAndStatus(id, Status.INACTIVE);
-            List<Job> jobUpdate = jobDao.findByCompAndStatus(id, Status.UPDATE);
-            List<Job> jobExpire = jobDao.findByCompAndStatus(id, Status.EXPIRE);
+            List<Job> jobActive = jobDao.findByCompAndStatus(id, Status.ACTIVE.ordinal());
+            List<Job> jobInactive = jobDao.findByCompAndStatus(id, Status.INACTIVE.ordinal());
+            List<Job> jobUpdate = jobDao.findByCompAndStatus(id, Status.UPDATE.ordinal());
+            List<Job> jobExpire = jobDao.findByCompAndStatus(id, Status.EXPIRE.ordinal());
+            List<Job> jobCanceled = jobDao.findByCompAndStatus(id, Status.CANCELED.ordinal());
             model.addAttribute("company", company);
             model.addAttribute("jobA", jobActive);
             model.addAttribute("jobI", jobInactive);
             model.addAttribute("jobU", jobUpdate);
             model.addAttribute("jobE", jobExpire);
+            model.addAttribute("jobC", jobCanceled);
             return "admin/admin_company";
         }
     }
@@ -154,7 +157,7 @@ public class AdminController {
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            companyDao.changeStatus(id, Status.ACTIVE);
+            companyDao.changeStatus(id, Status.ACTIVE.ordinal());
             return "redirect:/admin/admin_company/"+id;
         }
     }
@@ -167,7 +170,7 @@ public class AdminController {
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            companyDao.changeStatus(id, Status.CANCELED);
+            companyDao.changeStatus(id, Status.CANCELED.ordinal());
             return "redirect:/admin/admin_company/"+id;
         }
     }
@@ -285,7 +288,7 @@ public class AdminController {
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            jobDao.changeStatus(id, Status.ACTIVE);
+            jobDao.changeStatus(id, Status.ACTIVE.ordinal());
             return "redirect:/admin/admin_main";
         }
     }
@@ -298,7 +301,7 @@ public class AdminController {
             model.addAttribute("msg", 2);
             return "redirect:../";
         }else {
-            jobDao.changeStatus(id, Status.CANCELED);
+            jobDao.changeStatus(id, Status.CANCELED.ordinal());
             return "redirect:/admin/admin_job/"+id;
         }
     }

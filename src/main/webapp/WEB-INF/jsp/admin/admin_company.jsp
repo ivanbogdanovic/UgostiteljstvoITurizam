@@ -86,6 +86,14 @@
             </div>
           </c:forEach>
         </div>
+        <div class="well">
+          <h4>Deaktivirani poslovi ovog poslodavca</h4>
+          <c:forEach items="${jobC}" var="job">
+            <div>
+              <span><a href="admin/admin_job/${job.jobId}">${job.title}</a></span>
+            </div>
+          </c:forEach>
+        </div>  
       </div>
 
     </div><!-- row -->
